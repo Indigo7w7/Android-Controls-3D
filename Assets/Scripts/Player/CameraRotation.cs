@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class CameraRotation : MonoBehaviour
 {
-    [NonSerialized]
-    public Vector3 playerView;
+  
     [SerializeField]
     private Camera MainCamera;
     [NonSerialized]

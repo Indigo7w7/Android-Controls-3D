@@ -8,33 +8,49 @@ public class PlayerController : MonoBehaviour
 {
     private CharacterController player;
     CameraRotation cameraRotation;
-    private Vector3 PlayerInput;
+    Joystick joystick;
+
+
     [SerializeField]
     private float speed = 5;
-    Joystick joystick;
+    [SerializeField]
+    private float gravity = 150f;
+
+    private Vector3 PlayerInput;
+    private Vector3 PlayerView;
+
 
     private void Start()
     {
         player = GetComponent<CharacterController>();
         cameraRotation = FindObjectOfType<CameraRotation>();
         joystick = FindObjectOfType<Joystick>();
+
     }
 
     private void Update()
     {
+        setGravity();
         movement();
+    }
+
+    private void setGravity()
+    {
+        PlayerView.y = -gravity * Time.deltaTime;
     }
 
     private void movement()
     {
         PlayerInput = new Vector3(joystick.Axis.x, 0, joystick.Axis.y);
-        player.Move(cameraRotation.playerView * speed * Time.deltaTime);
+        player.Move(PlayerView * speed * Time.deltaTime);
         PlayerInput = Vector3.ClampMagnitude(PlayerInput, 1);
 
         cameraRotation.CamDirection();
-        cameraRotation.playerView = PlayerInput.x * cameraRotation.camRigth + PlayerInput.z * cameraRotation.camForward ;
-        player.transform.LookAt(player.transform.position + cameraRotation.playerView);
+        PlayerView = PlayerInput.x * cameraRotation.camRigth + PlayerInput.z * cameraRotation.camForward ;
+        player.transform.LookAt(player.transform.position + PlayerView);
     }
+
+   
 }
    
 
