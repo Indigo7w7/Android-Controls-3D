@@ -1,19 +1,29 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraRotation : MonoBehaviour
 {
-    PlayerController player;
-    // Start is called before the first frame update
-    void Start()
+    [NonSerialized]
+    public Vector3 playerView;
+    [SerializeField]
+    private Camera MainCamera;
+    [NonSerialized]
+    public Vector3 camForward;
+    [NonSerialized]
+    public Vector3 camRigth;
+
+     public void CamDirection()
     {
-      player = FindObjectOfType<PlayerController>();
+        camForward = MainCamera.transform.forward;
+        camRigth = MainCamera.transform.right;
+
+        camForward.y = 0;
+        camRigth.y = 0;
+
+        camForward = camForward.normalized;
+        camRigth = camRigth.normalized;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

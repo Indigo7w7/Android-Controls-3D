@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     private CharacterController player;
+    CameraRotation cameraRotation;
     private Vector3 PlayerInput;
     [SerializeField]
     private float speed = 5;
@@ -15,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         player = GetComponent<CharacterController>();
+        cameraRotation = FindObjectOfType<CameraRotation>();
         joystick = FindObjectOfType<Joystick>();
     }
 
@@ -26,9 +28,12 @@ public class PlayerController : MonoBehaviour
     private void movement()
     {
         PlayerInput = new Vector3(joystick.Axis.x, 0, joystick.Axis.y);
+        player.Move(cameraRotation.playerView * speed * Time.deltaTime);
         PlayerInput = Vector3.ClampMagnitude(PlayerInput, 1);
-        player.Move(PlayerInput * speed * Time.deltaTime);
-        Debug.Log(player.velocity.magnitude);
+
+        cameraRotation.CamDirection();
+        cameraRotation.playerView = PlayerInput.x * cameraRotation.camRigth + PlayerInput.z * cameraRotation.camForward ;
+        player.transform.LookAt(player.transform.position + cameraRotation.playerView);
     }
 }
    
