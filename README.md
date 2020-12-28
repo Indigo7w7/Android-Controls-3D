@@ -1,9 +1,14 @@
 # AndroidControls-3D
--gravity with acceleration of fall
--smoothness when moving up ramps
--look where you walk with respect to the camera
 
-ES:
+
+# EN:
+contains:
+-joystick movement.
+-gravity with acceleration of fall.
+-smoothness when moving up ramps.
+-look where you walk with respect to the camera.
+
+# ES:
 contiene:
 -movimiento por joystick.
 -gravedad con aceleración de caída.
