@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     private CharacterController player;
-    CameraRotation cameraRotation;
+    CameraTransform cameraRotation;
     Joystick joystick;
 
 
@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         player = GetComponent<CharacterController>();
-        cameraRotation = FindObjectOfType<CameraRotation>();
+        cameraRotation = FindObjectOfType<CameraTransform>();
         joystick = FindObjectOfType<Joystick>();
 
     }
